@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Список друзей</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">        
+		<link rel="stylesheet" href="main.css">
+		<script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+		<div id="listOfFriends" class=""></div>
+        <script src="main.js"></script>
+		<script id="friedsTable" type="text/x-handlebars-template">
+			<table class="table table-striped">
+				<!-- <caption>Таблица</caption> -->
+				<thead>
+					<th></th>
+					<th>Фамилия</th>
+					<th>Имя</th>
+					<th>Возраст</th>
+					<th>Дата рождения</th>
+				</thead>
+				{{#each friend}}
+					<tr>						
+							<td>
+								<a href='http://vk.com/id{{uid}}' target="_blank">
+									<img src='{{photo_50}}' class='img-responsive img-circle center-block' />
+								</a>
+							</td>
+							<td>{{last_name}}</td>
+							<td>{{first_name}}</td>
+							<td>{{ageBy bdate}}</td>
+							<td>{{bdate}}</td>						
+					</tr>
+				{{/each}}
+			</table>			
+		</script>
+    </body>
+</html>

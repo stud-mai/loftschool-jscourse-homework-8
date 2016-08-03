@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+         <meta charset="UTF-8">
+         <title>Search city</title>
+         <link rel="stylesheet" href="main.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    </head>
+    <body>
+         <label>
+            Enter a city name:
+            <input type="text" name="sCity" placeholder="Start typing city's name" />
+            <div class="container"></div>
+         </label>
+         <script src="main.js"></script>
+		<script type="text/x-handlebars-template" id="foundCities">			
+			{{#each list}}
+				<div class="results">
+					{{this}}
+				</div>
+			{{/each}}
+		</script>
+    </body>
+</html>
