@@ -24,8 +24,7 @@ let getDifference = (source) => {
 let sortByBirthday = (param1,param2) => {
     let eq1 = getDifference(param1.bdate),
         eq2 = getDifference(param2.bdate);
-
-    if ((eq1 < eq2 && (eq1 * eq2 > 0)) || (eq1 > eq2 && (eq1 * eq2 < 0))) return -1
+    if ((eq1 < eq2 && (eq1 * eq2 > 0)) || (eq1 > eq2 && (eq1 * eq2 < 0)) || eq1 == 0) return -1
     else return 1
 };
 
@@ -44,20 +43,20 @@ new Promise((resolve) => {
         VK.init({
             apiId: 5571180
         });
-        document.addEventListener('login', () => {
-            VK.Auth.login(function(response) {
-                if (response.session) {
-                    resolve(response);
-                } else {
-                    reject('Авторизация прошла не удачно!');
+        VK.Widgets.Auth('vk_auth', {
+            redesign: 1,
+            width: '250px',
+            onAuth: function(response){
+                if (response) {
+                    document.querySelector('#vk_auth').remove();
+                    resolve();
                 }
-            }, 2);
+            }
         });
 		/* document.addEventListener('click', () => {
 			window.open('https://oauth.vk.com/authorize?client_id=5571180&display=page&redirect_uri=close.html&response_type=token&scope=2','_self URL');
 			
 		}) */
-        document.dispatchEvent(login);
     })
 }).then((response) => {
     return new Promise(function(resolve, reject){
