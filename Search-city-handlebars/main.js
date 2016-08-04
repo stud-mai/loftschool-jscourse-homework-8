@@ -19,21 +19,17 @@ let getCities = (url) => {
 };
 
 let sortCities = (response) => {
-	let i = 0, list = [];
-	for (let {name} of response) { list[i++] = name }
+    let list = [];
+    for (let {name} of response) { list.push(name) }
     return list.sort();
 };
 
 let showResults = (result) => {
     let foundCities = document.querySelector('#foundCities').innerHTML,
 		template = Handlebars.compile(foundCities);
-	if (result.length){
-		container.innerHTML = template({list: result});
-		container.style.display = 'block';
-	} else {
-		container.innerHTML = template({list: ['No matches!']});
-		container.style.display = 'block';
-	}	
+	if (!result.length) result = ['No matches!'];
+    container.innerHTML = template({list: result});
+    container.style.display = 'block';
 };
 
 let removeResults = () => {

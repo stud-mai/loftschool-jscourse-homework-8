@@ -36,27 +36,34 @@ new Promise((resolve) => {
     }
 }).then(() => {
     return new Promise(function(resolve,reject){
-        let login = new Event('login',{
-            bubbles: true,
-            cancelable: false
-        });
+        let authButton = document.querySelector('#auth');
         VK.init({
             apiId: 5571180
         });
-        VK.Widgets.Auth('vk_auth', {
-            redesign: 1,
-            width: '250px',
-            onAuth: function(response){
-                if (response) {
-                    document.querySelector('#vk_auth').remove();
-                    resolve();
+        authButton.addEventListener('click', () => {
+            VK.Auth.login(function(response) {
+                if (response.session) {
+                    document.querySelector('.panel').remove();
+                    resolve(response);
+                } else {
+                    alert('Авторизация прошла не удачно!');
                 }
-            }
-        });
-		/* document.addEventListener('click', () => {
-			window.open('https://oauth.vk.com/authorize?client_id=5571180&display=page&redirect_uri=close.html&response_type=token&scope=2','_self URL');
-			
-		}) */
+            }, 2)});
+
+        // Также можно использовать красивый виджет от Вконтакте, но с портами он не работает
+        // Например, localhost:63342 работать не будет
+        /*
+         VK.Widgets.Auth('vk_auth', {
+             redesign: 1,
+             width: '250px',
+             onAuth: function(response){
+                 if (response) {
+                     document.querySelector('#vk_auth').remove();
+                     resolve();
+                 }
+             }
+         });
+         */
     })
 }).then((response) => {
     return new Promise(function(resolve, reject){
