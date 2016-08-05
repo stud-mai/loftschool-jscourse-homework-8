@@ -40,15 +40,22 @@ new Promise((resolve) => {
         VK.init({
             apiId: 5571180
         });
-        authButton.addEventListener('click', () => {
-            VK.Auth.login(function(response) {
-                if (response.session) {
-                    document.querySelector('.panel').remove();
-                    resolve(response);
-                } else {
-                    alert('Авторизация прошла не удачно!');
-                }
-            }, 2)});
+        VK.Auth.getLoginStatus(response => {
+            if (response.session) {
+                document.querySelector('.panel').remove();
+                resolve(response);
+            } else {
+                authButton.addEventListener('click', () => {
+                    VK.Auth.login(function(response) {
+                        if (response.session) {
+                            document.querySelector('.panel').remove();
+                            resolve(response);
+                        } else {
+                            alert('Авторизация прошла не удачно!');
+                        }
+                    }, 2)});
+            }
+        });
 
         // Также можно использовать красивый виджет от Вконтакте, но с портами он не работает
         // Например, localhost:63342 работать не будет
