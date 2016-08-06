@@ -29,7 +29,7 @@ let sortByBirthday = (param1,param2) => {
 };
 
 new Promise((resolve) => {
-    if (document.readyState == 'complite'){
+    if (document.readyState == 'complete'){
         resolve()
     } else {
         window.onload = resolve()
